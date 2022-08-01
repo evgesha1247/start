@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:text/ui/screens/home_screen/home_model_widget.dart';
+import 'package:text/domain/blocs/users_bloc.dart';
 
 class HomeScreenWidget extends StatelessWidget {
   const HomeScreenWidget({Key? key}) : super(key: key);
@@ -27,9 +27,9 @@ class _DecButton extends StatelessWidget {
   const _DecButton({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    final model = context.read<HomeModelWidget>();
+    final myBloc = context.read<UserBloc>();
     return ElevatedButton(
-      onPressed: model.dec1,
+      onPressed: () => myBloc.add(UserDecEvent()),
       child: const Icon(Icons.exposure_minus_1),
     );
   }
@@ -39,9 +39,9 @@ class _IncButton extends StatelessWidget {
   const _IncButton({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    final model = context.read<HomeModelWidget>();
+    final myBloc = context.read<UserBloc>();
     return ElevatedButton(
-      onPressed: model.inc1,
+      onPressed: () => myBloc.add(UserIncEvent()),
       child: const Icon(Icons.plus_one),
     );
   }
@@ -51,10 +51,16 @@ class _ValueWidget extends StatelessWidget {
   const _ValueWidget({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    final value = context.watch<HomeModelWidget>().getValue();
-    return Padding(
-      padding: const EdgeInsets.all(18.0),
-      child: Text(value),
-    );
+    final myBloc = context.read<UserBloc>();
+    return StreamBuilder<UserState>(
+        initialData: myBloc.state,
+        stream: myBloc.stream,
+        builder: (context, snapshot) {
+          final value = snapshot.requireData.currentUser.age;
+          return Padding(
+            padding: const EdgeInsets.all(18.0),
+            child: Text('$value'),
+          );
+        });
   }
 }

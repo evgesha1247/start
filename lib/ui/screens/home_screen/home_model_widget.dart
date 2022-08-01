@@ -1,16 +1,14 @@
-import 'package:flutter/cupertino.dart';
+import '../../../domain/object/user.dart';
 
-class HomeModelWidget extends ChangeNotifier {
-  var _value = 0;
-  getValue() => _value.toString();
+class UserService {
+  var _user = User(0);
+  User get user => _user;
 
-  inc1() {
-    notifyListeners();
-    return (_value = _value + 1).toString();
+  void userAgeInc() async {
+    _user = _user.copyWith(age: _user.age + 1);
   }
 
-  dec1() {
-    notifyListeners();
-    return (_value = _value - 1).toString();
+  void userAgeDec() async {
+    _user = _user.copyWith(age: _user.age - 1);
   }
 }
