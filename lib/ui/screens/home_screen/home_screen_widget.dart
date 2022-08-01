@@ -7,8 +7,9 @@ class HomeScreenWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final model = context.watch<HomeModelWidget>();
-    return const Scaffold(
-      body: Center(child: Text('hi')),
+    return Scaffold(
+      appBar: AppBar(),
+      body: const Center(child: Text('----')),
     );
   }
 }
