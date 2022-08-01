@@ -15,6 +15,7 @@ class UserState {
           currentUser == other.currentUser);
   @override
   int get hashCode => currentUser.hashCode;
+
   UserState copyWith({
     User? currentUser,
   }) {
@@ -32,7 +33,6 @@ class UserDecEvent implements UserEvent {}
 
 class UserBloc extends Bloc<UserEvent, UserState> {
   UserBloc() : super(UserState(currentUser: User(0))) {
-    // emin <- может менять текущее состоние
     on<UserIncEvent>((event, emit) {
       var user = state.currentUser;
       user = user.copyWith(age: user.age + 1);
