@@ -6,30 +6,49 @@ class HomeScreenWidget extends StatelessWidget {
   const HomeScreenWidget({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    final model = context.read<HomeModelWidget>();
     return Scaffold(
-      body: Center(
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            ElevatedButton(
-              onPressed: model.inc1,
-              child: const Icon(Icons.plus_one),
-            ),
-            const ValueWidget(),
-            ElevatedButton(
-              onPressed: model.dec1,
-              child: const Icon(Icons.exposure_minus_1),
-            ),
-          ],
+      body: SafeArea(
+        child: Center(
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: const [
+              _IncButton(),
+              _ValueWidget(),
+              _DecButton(),
+            ],
+          ),
         ),
       ),
     );
   }
 }
 
-class ValueWidget extends StatelessWidget {
-  const ValueWidget({Key? key}) : super(key: key);
+class _DecButton extends StatelessWidget {
+  const _DecButton({Key? key}) : super(key: key);
+  @override
+  Widget build(BuildContext context) {
+    final model = context.read<HomeModelWidget>();
+    return ElevatedButton(
+      onPressed: model.dec1,
+      child: const Icon(Icons.exposure_minus_1),
+    );
+  }
+}
+
+class _IncButton extends StatelessWidget {
+  const _IncButton({Key? key}) : super(key: key);
+  @override
+  Widget build(BuildContext context) {
+    final model = context.read<HomeModelWidget>();
+    return ElevatedButton(
+      onPressed: model.inc1,
+      child: const Icon(Icons.plus_one),
+    );
+  }
+}
+
+class _ValueWidget extends StatelessWidget {
+  const _ValueWidget({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     final value = context.watch<HomeModelWidget>().getValue();
