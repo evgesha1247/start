@@ -1,30 +1,31 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:text/domain/blocs/users_bloc.dart';
-
 import '../../../domain/object/user.dart';
 
 class HomeScreenWidget extends StatelessWidget {
   const HomeScreenWidget({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: const [
-                _IncButton(),
-                SizedBox(height: 10),
-                _DecButton(),
-              ],
-            ),
-            const _ValueWidget(),
-          ],
-        ),
-      ),
+    return const Scaffold(
+      body: Center(child: _ValueWidget()),
+      floatingActionButton: _FloatingButtonWidget(),
+    );
+  }
+}
+
+class _FloatingButtonWidget extends StatelessWidget {
+  const _FloatingButtonWidget({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.end,
+      children: const [
+        _IncButton(),
+        SizedBox(width: 10),
+        _DecButton(),
+      ],
     );
   }
 }
@@ -34,9 +35,9 @@ class _DecButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final myBloc = context.read<UserBloc>();
-    return ElevatedButton(
+    return FloatingActionButton(
       onPressed: () => myBloc.add(UserDecEvent()),
-      child: const Text('1'),
+      child: const Text('curr'),
     );
   }
 }
@@ -46,8 +47,10 @@ class _IncButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final myBloc = context.read<UserBloc>();
-    return ElevatedButton(
-        onPressed: () => myBloc.add(UserIncEvent()), child: const Text('0'));
+    return FloatingActionButton(
+      onPressed: () => myBloc.add(UserIncEvent()),
+      child: const Text('past'),
+    );
   }
 }
 
@@ -62,9 +65,7 @@ class _ValueWidget extends StatelessWidget {
           color: object.myStyle.bgColor,
           height: object.myStyle.contentHeight,
           width: object.myStyle.contentWidth,
-          child: Center(
-            child: Text(object.atribut),
-          ),
+          child: Center(child: Text(object.myStyle.title)),
         );
       },
     );
