@@ -12,6 +12,9 @@ dependencies:
   cupertino_icons: ^1.0.2
   shared_preferences: ^2.1.1   # local db
   provider: ^6.0.3             # State managmang
+  firebase_core: ^2.13.1
+  firebase_auth: ^4.6.2
+  firebase_ui_auth: ^1.4.2
 
 dev_dependencies:
   flutter_test:
