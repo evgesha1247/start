@@ -56,7 +56,7 @@ class Auth extends StatelessWidget {
         providers: providers,
         actions: [
           AuthStateChangeAction<SignedIn>((context, state) {
-            Navigator.pushReplacementNamed(context, '/profile');
+            Navigator.pushReplacementNamed(context, '/');
           }),
         ],
       ),
