@@ -1,15 +1,18 @@
+import 'package:flutter_start/app/theme/constants/them_const.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import '../constents/my_constents.dart';
 
-class ThemeService {
-  static Future<void> saveData(String value) async {
+
+abstract class ThemeService {
+  static Future<void> saveData(String nameTheme) async {
     final prefs = await SharedPreferences.getInstance();
-    prefs.setString(MyConstenst.LOCOL_KEY_THEME, value);
+    prefs.setString(TextKey.locKeyTheme, nameTheme);
   }
 
   static Future<String?> readData() async {
     final prefs = await SharedPreferences.getInstance();
-    String? valueThemeName = prefs.getString(MyConstenst.LOCOL_KEY_THEME);
-    return valueThemeName;
+    String? themeMod = prefs.getString(TextKey.locKeyTheme);
+    return themeMod;
   }
+
+
 }
